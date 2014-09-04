@@ -75,9 +75,11 @@
      !-->
     <!-- Checks that each Java package has a Javadoc file used for commenting. !-->
     <!-- See http://checkstyle.sourceforge.net/config_javadoc.html#JavadocPackage !-->
+    <!--
     <module name="JavadocPackage">
         <property name="allowLegacy" value="false"/>
     </module>
+    -->
 
 
     <!--
@@ -190,7 +192,7 @@
 
         <!-- This check makes sure that all package annotations are in the package-info.java file. !-->
         <!-- See http://checkstyle.sourceforge.net/config_annotation.html#PackageAnnotation !-->
-        <module name="PackageAnnotation"/>
+        <!--<module name="PackageAnnotation"/>-->
 
         <!-- This check allows you to specify what warnings that SuppressWarnings is not allowed to suppress. !-->
         <!-- You can also specify a list of TokenTypes that the configured warning(s) cannot be suppressed on. !-->
@@ -506,9 +508,11 @@
 
         <!-- Ensure a class has a package declaration. !-->
         <!-- See http://checkstyle.sf.net/config_coding.html !-->
+        <!--
         <module name="PackageDeclaration">
             <property name="ignoreDirectoryName" value="false"/>
         </module>
+        -->
 
         <!-- Disallow assignment of parameters. !-->
         <!-- See http://checkstyle.sf.net/config_coding.html !-->
@@ -517,12 +521,14 @@
         <!-- Checks for redundant exceptions declared in throws clause such as duplicates, !-->
         <!-- unchecked exceptions or subclasses of another declared exception. !-->
         <!-- See http://checkstyle.sf.net/config_coding.html !-->
+        <!--
         <module name="RedundantThrows">
             <property name="allowUnchecked"     value="false"/>
             <property name="allowSubclasses"    value="false"/>
             <property name="logLoadErrors"      value="true"/>
             <property name="suppressLoadErrors" value="false"/>
         </module>
+        -->
 
         <!-- Checks that code doesn't rely on the "this." default. !-->
         <!-- See http://checkstyle.sf.net/config_coding.html !-->
@@ -800,12 +806,12 @@
 
         <!-- The check to ensure that requires that comments be the only thing on a line. !-->
         <!-- See http://checkstyle.sf.net/config_misc.html !-->
+            <!--
         <module name="TrailingComment">
             <property name="format"       value="^[\\s\\}\\);]*$"/>
-            <!--
             <property name="legalComment" value=""/>
-            !-->
         </module>
+            !-->
 
         <!-- Checks for uncommented main() methods (debugging leftovers). !-->
         <!-- See http://checkstyle.sf.net/config_misc.html !-->
@@ -927,7 +933,7 @@
         <!-- Checks for type name naming conventions. !-->
         <!-- See http://checkstyle.sf.net/config_naming.html !-->
         <module name="TypeName">
-            <property name="format"           value="^[a-z][a-zA-Z0-9]*$"/>
+            <property name="format"           value="^[A-Z][a-zA-Z0-9]*$"/>
             <property name="tokens"           value="CLASS_DEF, INTERFACE_DEF"/>
             <property name="applyToPublic"    value="true"/>
             <property name="applyToProtected" value="true"/>
