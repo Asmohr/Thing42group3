@@ -3,31 +3,14 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Per the definition specified in the preliminary programming assignment;
- * This interface specifies the required methods for {@code Thing42} objects.
- * <p>Its name reflects that the value of a variable of this type
- * may be a reference to a {@code Thing42} object or the value may be null.<br>
- *
- * <p>In addition to the {@code Key} and {@code Data} attributes, the
- * {@code Thing42orNull} interface specifies that a {@code Thing42} object has
- * an integer-valued attribute known as its {@code level}, an unordered
- * {@code java.util.Collection} of {@code Thing42} objects known as its
- * {@code peers} as well as an ordered {@code java.util.Collection} of
- * {@code Thing42} objects known as its {@code pool} that allows duplicates.
- * <br>
- *
- * <p>The peers and pool {@code java.util.Collection}'s do allow for the
- * storing of duplicate Thing42 objects. <br>
- *
- * <p>The {@code Thing42orNull} interface places extra specifications,
- * in addition to those specified in the Object class, on the contracts
- * of the {@code equals} and {@code hashCode} methods. <br>
+ * Master Thing42orNull API that duplicates Jody's online. Will add the
+ * remaining comments before final review.
  *
  * @author Group 3 - MW - From Jody Paul's API
- * @version CS4250 Fall 2014 - API - (31 August 2014)
+ * @version CS4250 Fall 2014 - API - (3 September 2014)
  *
- * @param <K> generic attribute known as its {@code Key}
- * @param <D> generic mutable attribute known as its {@code Data}
+ * @param <K> the type of key
+ * @param <D> the type of data
  */
 public interface Thing42orNull<K, D> {
 
@@ -37,7 +20,8 @@ public interface Thing42orNull<K, D> {
      * @param newPeer the peer to be added
      * @throws NullPointerException if the specified peer is null
      */
-    void addPeer(Thing42orNull<K, D> newPeer);
+    void addPeer(Thing42orNull<K, D> newPeer)
+            throws NullPointerException;
 
     /**
      * Append a member to the pool of this object.
@@ -45,7 +29,24 @@ public interface Thing42orNull<K, D> {
      * @param newMember the object to be appended to the pool
      * @throws NullPointerException if the specified item is null
      */
-    void appendToPool(Thing42orNull<K, D> newMember);
+    void appendToPool(Thing42orNull<K, D> newMember)
+            throws NullPointerException;
+
+    /**
+     * <p>
+     * Determines whether or not the specified Object is equal to this
+     * Thing42orNull. The specified Object is equal to this Thing42orNull if it
+     * is an instance of Thing42; if its level is the same as this
+     * Thing42orNull; and if its key, data, peers, and pool are the same as this
+     * Thing42orNull via the equals predicate.
+     *
+     * @param obj an Object to be compared with this Thing42orNull.
+     * @return true if obj is an instance of Thing42 and has the same values;
+     * false otherwise.
+     * @see hashCode()
+     */
+    @Override
+    boolean equals(Object obj);
 
     /**
      * Access the data of this Thing42.
@@ -70,42 +71,55 @@ public interface Thing42orNull<K, D> {
 
     /**
      * Access a peer matching the specified key.
+     *
      * @param key the search key
-     * @return any peer known by this object that matches the given key;
-     * null if no match
+     * @return any peer known by this object that matches the given key; null if
+     * no match
      */
     Thing42orNull<K, D> getOnePeer(K key);
 
     /**
      * Access all peers.
-     * @return all peers known by this object;
-     * if no peers then returns a collection with size() == 0.
+     *
+     * @return all peers known by this object; if no peers then returns a
+     * collection with size() == 0.
      */
     Collection<Thing42orNull<K, D>> getPeersAsCollection();
 
     /**
      * Access all peers matching the specified key.
+     *
      * @param key the search key
-     * @return all peers known by this object that match the given key;
-     * if no peer matches then returns a collection with size() == 0.
+     * @return all peers known by this object that match the given key; if no
+     * peer matches then returns a collection with size() == 0.
      */
     Collection<Thing42orNull<K, D>> getPeersAsCollection(K key);
 
     /**
      * Access all members of the pool.
-     * @return all members of the pool known by this object;
-     * if no members then returns a list with size() == 0.
+     *
+     * @return all members of the pool known by this object; if no members then
+     * returns a list with size() == 0.
      */
     List<Thing42orNull<K, D>> getPoolAsList();
+
+    /**
+     * Returns the hashcode for this Thing42orNull.
+     *
+     * @return the hashcode for this Thing42orNull
+     */
+    @Override
+    int hashCode();
 
     /**
      * Remove a single instance of the specified object from this object's pool.
      *
      * @param member the member to be removed from the pool
      * @return true if a pool member was removed as a result of this call
-     * @throws NullPointerException  if the specified parameter is null
+     * @throws NullPointerException if the specified parameter is null
      */
-    boolean removeFromPool(Thing42orNull<K, D> member);
+    boolean removeFromPool(Thing42orNull<K, D> member)
+            throws NullPointerException;
 
     /**
      * Remove a single instance of the specified peer from this object.
@@ -114,7 +128,8 @@ public interface Thing42orNull<K, D> {
      * @return true if a peer was removed as a result of this call
      * @throws NullPointerException if the specified peer is null
      */
-    boolean removePeer(Thing42orNull<K, D> peer);
+    boolean removePeer(Thing42orNull<K, D> peer)
+            throws NullPointerException;
 
     /**
      * Modify the data of this Thing42.
@@ -122,26 +137,4 @@ public interface Thing42orNull<K, D> {
      * @param newData the updated data for this object
      */
     void setData(D newData);
-
-    /**
-     * <p>Compare the equality of two Thing42 objects to ensure they have the
-     * same
-     * Key, Data, level, pool collection, and peers collection.
-     * Since K and D are generics equals must also compare K and D of both
-     * objects to make sure they are the same type
-     *
-     * @param otherThing the second Thing42 object to be compared with this
-     * Thing42 object
-     * @return true if the two objects are equal
-     */
-    @Override
-    boolean equals(Object obj);
-
-    /**
-     * Returns the hash code value for this Thing42 object
-     *
-     * @return hashCode int for this Thing42 object
-     */
-    @Override
-    int hashCode();
 }
