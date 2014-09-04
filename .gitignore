@@ -1,3 +1,4 @@
 .*.swp
 build/
-/nbproject/private/
+/nbproject/private/doc/
+nbproject/private/
