@@ -1,4 +1,6 @@
 //~--- JDK imports ------------------------------------------------------------
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -13,6 +15,12 @@ import java.util.List;
  */
 public class Thing42<K, D> implements Thing42orNull<K, D> {
 
+    private final K key;
+    private final long level;
+    private D data;
+    private Collection<Thing42orNull> peers;
+    private Collection<Thing42orNull> pool;
+
     /**
      * Constructor for objects of class Thing42.
      *
@@ -20,7 +28,12 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      * @param level the level of this object
      * @param data the data of this object
      */
-    public Thing42(final K key, final long level, final D data) {
+    public Thing42(K key, long level, D data) {
+        this.key = key;
+        this.level = level;
+        this.data = data;
+        peers = new ArrayList<Thing42orNull>();
+        pool = new ArrayList<Thing42orNull>();
     }
 
     /**
@@ -29,7 +42,12 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      * @param newPeer the peer to be added
      * @throws NullPointerException if the specified peer is null
      */
+    @Override
     public void addPeer(Thing42orNull<K, D> newPeer) throws NullPointerException {
+        if (newPeer == null) {
+            throw new NullPointerException();
+        }
+        peers.add(newPeer);
     }
 
     /**
@@ -38,8 +56,12 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      * @param newMember the object to be appended to the pool
      * @throws NullPointerException if the specified item is null
      */
-    public void appendToPool(Thing42orNull<K, D> newMember)
-            throws NullPointerException {
+    @Override
+    public void appendToPool(Thing42orNull<K, D> newMember) throws NullPointerException {
+        if (newMember == null) {
+            throw new NullPointerException();
+        }
+        pool.add(newMember);
     }
 
     /**
@@ -64,8 +86,9 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      *
      * @return the data of this object
      */
+    @Override
     public D getData() {
-        return null;
+        return data;
     }
 
     /**
@@ -73,8 +96,9 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      *
      * @return the key of this object
      */
+    @Override
     public K getKey() {
-        return null;
+        return key;
     }
 
     /**
@@ -82,8 +106,9 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      *
      * @return the level of this object
      */
+    @Override
     public long getLevel() {
-        return 0;
+        return level;
     }
 
     /**
@@ -93,7 +118,13 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      * @return any peer known by this object that matches the given key; null if
      * no match
      */
+    @Override
     public Thing42orNull<K, D> getOnePeer(K key) {
+        for (Thing42orNull thing : peers) {
+            if (thing.getKey().equals(key)) {
+                return thing;
+            }
+        }
         return null;
     }
 
@@ -103,8 +134,16 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      * @return all peers known by this object; if no peers then returns a
      * collection with size() == 0.
      */
+    @Override
     public Collection<Thing42orNull<K, D>> getPeersAsCollection() {
-        return null;
+        //this is a deep copy
+        Collection<Thing42orNull<K, D>> returnThings = new ArrayList<Thing42orNull<K, D>>();
+        for (Thing42orNull thing : peers) {
+            returnThings.add(thing);
+        }
+        return returnThings;
+        //for a shallow copy use:
+        //return peers;
     }
 
     /**
@@ -114,8 +153,15 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      * @return all peers known by this object that match the given key; if no
      * peer matches then returns a collection with size() == 0.
      */
+    @Override
     public Collection<Thing42orNull<K, D>> getPeersAsCollection(K key) {
-        return null;
+        Collection<Thing42orNull<K, D>> returnThings = new ArrayList<Thing42orNull<K, D>>();
+        for (Thing42orNull thing : peers) {
+            if (thing.getKey().equals(key)) {
+                returnThings.add(thing);
+            }
+        }
+        return returnThings;
     }
 
     /**
@@ -124,8 +170,16 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      * @return all members of the pool known by this object; if no members then
      * returns a list with size() == 0.
      */
+    @Override
     public List<Thing42orNull<K, D>> getPoolAsList() {
-        return null;
+        //this is a deep copy
+        List<Thing42orNull<K, D>> poolList = new ArrayList<Thing42orNull<K, D>>();
+        for (Thing42orNull thing : pool) {
+            poolList.add(thing);
+        }
+        return poolList;
+        //for a shallow copy use:
+        //return (List<Thing42orNull>) pool;
     }
 
     /**
@@ -145,9 +199,12 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      * @return true if a pool member was removed as a result of this call
      * @throws NullPointerException if the specified parameter is null
      */
-    public boolean removeFromPool(Thing42orNull<K, D> member)
-            throws NullPointerException {
-        return false;
+    @Override
+    public boolean removeFromPool(Thing42orNull<K, D> member) throws NullPointerException {
+        if (member == null) {
+            throw new NullPointerException();
+        }
+        return pool.remove(member);
     }
 
     /**
@@ -157,9 +214,12 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      * @return true if a peer was removed as a result of this call
      * @throws NullPointerException if the specified peer is null
      */
-    public boolean removePeer(Thing42orNull<K, D> peer)
-            throws NullPointerException {
-        return false;
+    @Override
+    public boolean removePeer(Thing42orNull<K, D> peer) throws NullPointerException {
+        if (peer == null) {
+            throw new NullPointerException();
+        }
+        return peers.remove(peer);
     }
 
     /**
@@ -167,6 +227,8 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      *
      * @param newData the updated data for this object
      */
+    @Override
     public void setData(D newData) {
+        data = newData;
     }
 }
