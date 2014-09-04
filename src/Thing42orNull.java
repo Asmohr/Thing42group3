@@ -21,7 +21,7 @@ public interface Thing42orNull<K, D> {
      * @throws NullPointerException if the specified peer is null
      */
     void addPeer(Thing42orNull<K, D> newPeer)
-            throws NullPointerException;
+        throws NullPointerException;
 
     /**
      * Append a member to the pool of this object.
@@ -30,7 +30,7 @@ public interface Thing42orNull<K, D> {
      * @throws NullPointerException if the specified item is null
      */
     void appendToPool(Thing42orNull<K, D> newMember)
-            throws NullPointerException;
+        throws NullPointerException;
 
     /**
      * <p>
@@ -119,7 +119,7 @@ public interface Thing42orNull<K, D> {
      * @throws NullPointerException if the specified parameter is null
      */
     boolean removeFromPool(Thing42orNull<K, D> member)
-            throws NullPointerException;
+        throws NullPointerException;
 
     /**
      * Remove a single instance of the specified peer from this object.
@@ -129,7 +129,7 @@ public interface Thing42orNull<K, D> {
      * @throws NullPointerException if the specified peer is null
      */
     boolean removePeer(Thing42orNull<K, D> peer)
-            throws NullPointerException;
+        throws NullPointerException;
 
     /**
      * Modify the data of this Thing42.
