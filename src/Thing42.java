@@ -3,6 +3,7 @@
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Collections;
 
 /**
  * Master Thing42 API that duplicates Jody's online. Will add the remaining
@@ -15,6 +16,10 @@ import java.util.List;
  */
 public class Thing42<K, D> implements Thing42orNull<K, D> {
 
+    /** Starting prime for calculate hashcode. */
+    private static final int FIRSTPRIME = 5;
+    /** prime number for calculating hashcode. */
+    private static final int PRIMENUM = 89;
     /** Holds the key value of this object.*/
     private final K key;
     /** Holds the level value of this object.*/
@@ -85,7 +90,90 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      */
     @Override
     public boolean equals(final Object obj) {
-        return false;
+        /* Strings used for comparing class names of the Key and Data */
+        final String thisKeyClass;
+        final String objKeyClass;
+        final String thisDataClass;
+        final String objDataClass;
+        /* Booleans used for storing the boolean when comparing the classes */
+        final boolean equalKClasses;
+        final boolean equalDClasses;
+        /* Array lists used for comparing the two objects */
+        final ArrayList<Thing42orNull<K, D>> thisPeers;
+        final ArrayList<Thing42orNull<K, D>> objPeers;
+        final ArrayList<Thing42orNull<K, D>> thisPool;
+        final ArrayList<Thing42orNull<K, D>> objPool;
+        // If the object is compared with itself then return true
+        if (obj == this) {
+            return true;
+        }
+
+        /* Check if o is an instance of Complex or not
+          "null instanceof [type]" also returns false */
+        if (!(obj instanceof Thing42orNull)) {
+            return false;
+        }
+
+        Thing42<K, D> thingObj = (Thing42<K, D>) obj;
+        if (this.getLevel() != thingObj.getLevel()) {
+            return false;
+        }
+        // null check both objects Key
+        if (this.getKey() != null && thingObj.getKey() != null) {
+            // Compare what class the Key is for both objects
+            thisKeyClass = this.getKey().getClass().toString();
+            objKeyClass = thingObj.getKey().getClass().toString();
+            equalKClasses = thisKeyClass.equals(objKeyClass);
+            if (!equalKClasses || !this.getKey().equals(thingObj.getKey())) {
+                return false;
+            }
+        } else if (this.getKey() != null || thingObj.getKey() != null) {
+            return false;
+        }
+
+        // null check both objects data
+        if (this.getData() != null && thingObj.getData() != null) {
+            // Compare what class the Data is for both objects
+            thisDataClass = this.getData().getClass().toString();
+            objDataClass = thingObj.getData().getClass().toString();
+            equalDClasses = thisDataClass.equals(objDataClass);
+            if (!equalDClasses || !this.getData().equals(thingObj.getData())) {
+                return false;
+            }
+        } else if (this.getData() != null || thingObj.getData() != null) {
+            return false;
+        }
+
+        /* Compare peer list */
+        thisPeers
+            = (ArrayList<Thing42orNull<K, D>>) this.getPeersAsCollection();
+        objPeers
+            = (ArrayList<Thing42orNull<K, D>>) thingObj.getPeersAsCollection();
+        if (thisPeers.size() != objPeers.size()) {
+            return false;
+        }
+        for (int i = 0; i < this.peers.size(); i++) {
+            int thisCount = Collections.frequency(thisPeers, thisPeers.get(i));
+            int objCount = Collections.frequency(objPeers, thisPeers.get(i));
+            if (thisCount != objCount) {
+                return false;
+            }
+        }
+        /* Compare pool list */
+        thisPool = (ArrayList<Thing42orNull<K, D>>) this.getPoolAsList();
+        objPool = (ArrayList<Thing42orNull<K, D>>) thingObj.getPoolAsList();
+        if (thisPool.size() != objPool.size()) {
+            return false;
+        }
+        for (int i = 0; i < this.pool.size(); i++) {
+            int thisCount = Collections.frequency(thisPool, thisPool.get(i));
+            int objCount = Collections.frequency(objPool, thisPool.get(i));
+            if (thisCount != objCount) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -199,7 +287,27 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      */
     @Override
     public int hashCode() {
-        return 0;
+        int hash = FIRSTPRIME;
+        int partialHashCode;
+
+        partialHashCode = Long.valueOf(this.getLevel()).hashCode();
+        hash = PRIMENUM * hash + partialHashCode;
+
+        if (this.getKey() != null) {
+            partialHashCode = this.getKey().hashCode();
+        } else {
+            partialHashCode = 0;
+        }
+        hash = PRIMENUM * hash + partialHashCode;
+
+        if (this.getData() != null) {
+            partialHashCode = this.getData().hashCode();
+        } else {
+            partialHashCode = 0;
+        }
+        hash = PRIMENUM * hash + partialHashCode;
+
+        return hash;
     }
 
     /**
