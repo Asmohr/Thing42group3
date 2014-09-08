@@ -99,10 +99,10 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
         final boolean equalKClasses;
         final boolean equalDClasses;
         /* Array lists used for comparing the two objects */
-        final ArrayList<Thing42orNull<K, D>> thisPeers;
-        final ArrayList<Thing42orNull<K, D>> objPeers;
-        final ArrayList<Thing42orNull<K, D>> thisPool;
-        final ArrayList<Thing42orNull<K, D>> objPool;
+        final List<Thing42orNull<K, D>> thisPeers;
+        final List<Thing42orNull<K, D>> objPeers;
+        final List<Thing42orNull<K, D>> thisPool;
+        final List<Thing42orNull<K, D>> objPool;
         // If the object is compared with itself then return true
         if (obj == this) {
             return true;
@@ -114,7 +114,7 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
             return false;
         }
 
-        Thing42<K, D> thingObj = (Thing42<K, D>) obj;
+        final Thing42<K, D> thingObj = (Thing42<K, D>) obj;
         if (this.getLevel() != thingObj.getLevel()) {
             return false;
         }
@@ -152,9 +152,11 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
         if (thisPeers.size() != objPeers.size()) {
             return false;
         }
-        for (int i = 0; i < this.peers.size(); i++) {
-            int thisCount = Collections.frequency(thisPeers, thisPeers.get(i));
-            int objCount = Collections.frequency(objPeers, thisPeers.get(i));
+        for (int i = 0; i < this.peers.size(); ++i) {
+            final int thisCount
+                = Collections.frequency(thisPeers, thisPeers.get(i));
+            final int objCount
+                = Collections.frequency(objPeers, thisPeers.get(i));
             if (thisCount != objCount) {
                 return false;
             }
@@ -165,9 +167,11 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
         if (thisPool.size() != objPool.size()) {
             return false;
         }
-        for (int i = 0; i < this.pool.size(); i++) {
-            int thisCount = Collections.frequency(thisPool, thisPool.get(i));
-            int objCount = Collections.frequency(objPool, thisPool.get(i));
+        for (int i = 0; i < this.pool.size(); ++i) {
+            final int thisCount
+                = Collections.frequency(thisPool, thisPool.get(i));
+            final int objCount
+                = Collections.frequency(objPool, thisPool.get(i));
             if (thisCount != objCount) {
                 return false;
             }
