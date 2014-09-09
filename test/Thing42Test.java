@@ -32,7 +32,6 @@ public class Thing42Test {
         rgbRandom     = new Thing42<String, String> ("#FF123A", 3, "Random");
         intString1    = new Thing42<Integer, String> (1, 1, "one");
         intString2    = new Thing42<Integer, String> (1, 2, "two");
-        nullIntString = new Thing42<Integer, String> ();
     }
 
     /**
@@ -43,15 +42,12 @@ public class Thing42Test {
         assertEquals(0, rgbBlack.getPeersAsCollection().size());
         rgbBlack.addPeer(rgbRed);
         assertEquals(1, rgbBlack.getPeersAsCollection().size());
-
         // Should we be able to do this?
         rgbBlack.addPeer(rgbRandom);
         assertEquals(2, rgbBlack.getPeersAsCollection().size());
         assertEquals(true, rgbBlack.getPeersAsCollection().contains(rgbRed));
-        assertEquals(true, rgbBlack.getPeersAsCollection()
+        assertEquals(false, rgbBlack.getPeersAsCollection()
                 .contains(intString1));
-        rgbBlack.addPeer(null);
-        assertEquals(3, rgbBlack.getPeersAsCollection().size());
     }
 
     /**
@@ -81,7 +77,7 @@ public class Thing42Test {
         Thing42orNull<String, String> thing2 =
                 (Thing42orNull) rgbBlack.getPoolAsList().get(1);
 
-        assertEquals("one", thing2.getData());
+        assertEquals("Random", thing2.getData());
     }
 
     /**
@@ -100,7 +96,7 @@ public class Thing42Test {
     public void testGetData() {
         assertEquals("Black", rgbBlack.getData());
         assertEquals("one", intString1.getData());
-        assertEquals(null, nullIntString.getData());
+        //assertEquals(null, nullIntString.getData());
     }
 
     /**
@@ -110,7 +106,7 @@ public class Thing42Test {
     public void testGetKey() {
         assertEquals("#000000", rgbBlack.getKey());
         assertEquals(1, (long) intString1.getKey());
-        assertEquals(null, nullIntString.getKey());
+        //assertEquals(null, nullIntString.getKey());
     }
 
     /**
@@ -175,7 +171,7 @@ public class Thing42Test {
         rgbBlack.addPeer(rgbRed);
         assertEquals(1, rgbBlack.getPeersAsCollection("#FF0000").size());
 
-        for (Thing42orNull peer : (HashSet<Thing42orNull>)
+        for (Thing42orNull peer :
                 rgbBlack.getPeersAsCollection("#FF0000")) {
             assertTrue(peer.getData().equals("Red"));
         }
@@ -197,7 +193,8 @@ public class Thing42Test {
         assertEquals(2, rgbBlack.getPoolAsList().size());
         rgbBlack.removeFromPool(rgbRed);
         assertEquals(1, rgbBlack.getPoolAsList().size());
-        assertEquals(true, rgbBlack.getPoolAsList().contains(intString1));
+        assertFalse(rgbBlack.getPoolAsList().contains(rgbRed));
+        assertEquals(true, rgbBlack.getPoolAsList().contains(rgbRandom));
     }
 
     /**
@@ -210,15 +207,15 @@ public class Thing42Test {
         rgbBlack.appendToPool(rgbRandom);
         assertEquals(2, rgbBlack.getPoolAsList().size());
 
-        Thing42orNull<String, String> thing1 =
+        Thing42orNull<String, String> thing1 = //rgbRed
                 (Thing42orNull) rgbBlack.getPoolAsList().get(0);
 
         assertEquals("Red", thing1.getData());
 
-        Thing42orNull<String, String> thing2 =
+        Thing42orNull<String, String> thing2 = //rgbRandom
                 (Thing42orNull) rgbBlack.getPoolAsList().get(1);
 
-        assertEquals("one", thing2.getData());
+        assertEquals("Random", thing2.getData());
         assertEquals(true, rgbBlack.removeFromPool(rgbRed));
         assertEquals(false, rgbBlack.removeFromPool(rgbRed));
         assertEquals(1, rgbBlack.getPoolAsList().size());
@@ -226,7 +223,7 @@ public class Thing42Test {
         Thing42orNull<String, String> thing3 =
                 (Thing42orNull) rgbBlack.getPoolAsList().get(0);
 
-        assertEquals("one", thing3.getData());
+        assertEquals("Random", thing3.getData());
     }
 
     /**
@@ -255,7 +252,7 @@ public class Thing42Test {
         rgbBlack.addPeer(rgbRandom);
         assertEquals(2, rgbBlack.getPeersAsCollection().size());
         assertEquals(true, rgbBlack.getPeersAsCollection().contains(rgbRed));
-        assertEquals(true, rgbBlack.getPeersAsCollection()
+        assertEquals(false, rgbBlack.getPeersAsCollection()
                 .contains(intString1));
         assertEquals(true, rgbBlack.removePeer(rgbRed));
         assertEquals(false, rgbBlack.removePeer(rgbRed));
@@ -291,8 +288,59 @@ public class Thing42Test {
         assertEquals("one", intString1.getData());
         intString1.setData("three");
         assertEquals("three", intString1.getData());
-        assertEquals(null, nullIntString.getData());
-        nullIntString.setData("new");
-        assertEquals("new", nullIntString.getData());
+        //assertNull(nullIntString.getData());
+    
+    }
+    
+    /**
+     * Test to enure correct results from overwritten equal method.
+     */
+    @Test
+    public void equalsTest(){
+        Thing42<String, String> rgbBlack2 = new Thing42<String, String> ("#000000", 1, "Black");
+        assertTrue(rgbBlack.equals(rgbBlack2));
+        Thing42<String, String> rgbGreen = new Thing42<String, String> ("#00FF00", 1, "Green");
+        rgbBlack2.addPeer(rgbGreen);
+        rgbBlack.addPeer(rgbGreen);
+        assertTrue(rgbBlack.equals(rgbBlack2));
+    }
+    
+    /**
+     * Test to ensure a null pointer is thrown when comparing thing42 to null.
+     */
+    @Test
+    public void equalsTestNull(){
+        assertFalse(rgbBlack.equals(null));
+    }
+    /**
+     * Test to ensure Thing42 of different Data Types don't equal.
+     */
+    @Test
+    public void equalsTestDifferentKeysData(){
+        Thing42<Integer, Integer> Inte = new Thing42<Integer, Integer> (1, 1, 1);
+        Thing42<Long, Long> Longe = new Thing42<Long, Long> (1L, 1, 1L);
+        assertFalse(Inte.equals(Longe));
+    }
+    
+    @Test
+    public void keyAndDataNull(){
+        Thing42<Integer,Integer> nullThing = new Thing42<Integer,Integer>(null, 1, null);
+        assertNull(nullThing.getData());
+    }
+    
+    @Test
+    public void hashTestNullCheck(){    
+        Integer hash = rgbBlack.hashCode();
+        assertFalse(hash.equals(null));
+    }
+    
+    @Test
+    public void hashTestEqualThings(){
+        Thing42<String, String> rgbBlack2 = new Thing42<String, String>("#000000", 1, "Black");
+        assertTrue(rgbBlack.equals(rgbBlack2));
+        System.out.println(rgbBlack.hashCode() + " " + rgbRandom.hashCode() + " " + rgbRed.hashCode());
+        assertTrue(rgbBlack.hashCode() == rgbBlack2.hashCode());
+        assertTrue(rgbBlack.hashCode() != rgbRandom.hashCode());
+        assertTrue(rgbBlack.hashCode() != rgbRed.hashCode());
     }
 }
