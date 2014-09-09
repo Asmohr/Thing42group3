@@ -322,18 +322,29 @@ public class Thing42Test {
         assertFalse(Inte.equals(Longe));
     }
     
+    /**
+     * Create a Thing42 with null data and key.
+     */
     @Test
     public void keyAndDataNull(){
         Thing42<Integer,Integer> nullThing = new Thing42<Integer,Integer>(null, 1, null);
         assertNull(nullThing.getData());
     }
     
+    /**
+     * Compare the hash to a null.
+     */
     @Test
     public void hashTestNullCheck(){    
         Integer hash = rgbBlack.hashCode();
         assertFalse(hash.equals(null));
     }
     
+    /**
+     * Make sure the has equals something with the same data, level, and key.
+     * Also, make sure that it is not equal to an object with a different
+     * data, level, and key.
+     */
     @Test
     public void hashTestEqualThings(){
         Thing42<String, String> rgbBlack2 = new Thing42<String, String>("#000000", 1, "Black");
