@@ -363,11 +363,23 @@ public class Thing42Test_2ndLayer {
     public void testCircularDependency()
     {
         Thing42 instance = new Thing42( "key1", 1, "Data2" );
-        Thing42 peer1 = new Thing42( "key2", 2, "Data3" );
-        Thing42 peer2 = new Thing42( "key3", 3, "Data4" );
+        Thing42 peer1 = new Thing42( "key1", 1, "Data2" );
+        Thing42 peer2 = new Thing42( "key1", 1, "Data2" );
         instance.addPeer( peer1 );
         peer1.addPeer( peer2 );
         peer2.addPeer( instance );
+        assertNotEquals( peer1, peer2 );
+    }
+    /**
+     * Tests adding one peer.
+     */
+    @Test
+    public void testCircularDependency2()
+    {
+        Thing42 peer1 = new Thing42( "key1", 1, "Data2" );
+        Thing42 peer2 = new Thing42( "key1", 1, "Data2" );
+        peer2.addPeer( peer1 );
+        peer1.addPeer( peer2 );
         assertNotEquals( peer1, peer2 );
     }
 }
