@@ -6,11 +6,32 @@ import java.util.List;
 import java.util.Collections;
 
 /**
- * Master Thing42 API that duplicates Jody's online. Will add the remaining
- * comments before final review.
- *
+ * An object of type Thing42 has five attributes. 
+ * There are two immutable attributes: a generic attribute known 
+ * as its {@code key} and an integer-valued attribute known as its {@code level}. 
+ * There is also a generic mutable attribute known as its {@code data}. 
+ * Values of key, level, and data are assigned at object creation. 
+ * In addition, each Thing42 object has an unordered collection of Thing42 
+ * objects known as its {@code peers} as well as an ordered collection 
+ * of Thing42 objects known as its {@code pool}.<br><br>
+ * 
+ * +-----------+<br>
+ * |  Thing42  |<br>
+ * +-----------+ 
+ * <table frame="vsides" style="width:40px" >
+ * <tr>
+ * <td>Key <br>
+ *     Level <br>
+ *     Data <br>
+ *     Peers... <br>
+ *     Pool... <br>
+ * </td>
+ * </tr>
+ * </table>
+ * +-----------+<br><br>
+ * 
  * @author Group 3 - MW - From Jody Paul's API
- * @version CS4250 Fall 2014 - API - (3 September 2014)
+ * @version CS4250 Fall 2014 - API - (11 September 2014)
  * @param <K> the type of key
  * @param <D> the type of data
  */
@@ -34,14 +55,14 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
     /**
      * Constructor for objects of class Thing42.
      *
-     * @param nkey the key of this object
-     * @param nlevel the level of this object
-     * @param ndata the data of this object
+     * @param key the key of this object
+     * @param level the level of this object
+     * @param data the data of this object
      */
-    public Thing42(final K nkey, final long nlevel, final D ndata) {
-        this.key = nkey;
-        this.level = nlevel;
-        this.data = ndata;
+    public Thing42(final K key, final long level, final D data) {
+        this.key = key;
+        this.level = level;
+        this.data = data;
         this.peers = new ArrayList<Thing42orNull>();
         this.pool = new ArrayList<Thing42orNull>();
     }
@@ -111,8 +132,8 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
         /* Check if o is an instance of Complex or not
           "null instanceof [type]" also returns false */
         if (!(obj instanceof Thing42orNull)) {
-            return false;
-        }
+        return false;
+    }
 
         final Thing42<K, D> thingObj = (Thing42<K, D>) obj;
         if (this.getLevel() != thingObj.getLevel()) {
@@ -301,7 +322,7 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
             partialHashCode = this.getKey().hashCode();
         } else {
             partialHashCode = 0;
-        }
+    }
         hash = PRIMENUM * hash + partialHashCode;
 
         if (this.getData() != null) {
