@@ -111,14 +111,6 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      */
     @Override
     public boolean equals(final Object obj) {
-        /* Strings used for comparing class names of the Key and Data */
-        final String thisKeyClass;
-        final String objKeyClass;
-        final String thisDataClass;
-        final String objDataClass;
-        /* Booleans used for storing the boolean when comparing the classes */
-        final boolean equalKClasses;
-        final boolean equalDClasses;
         /* Array lists used for comparing the two objects */
         final List<Thing42orNull<K, D>> thisPeers;
         final List<Thing42orNull<K, D>> objPeers;
@@ -132,72 +124,94 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
         /* Check if o is an instance of Complex or not
           "null instanceof [type]" also returns false */
         if (!(obj instanceof Thing42orNull)) {
-        return false;
-    }
+            return false;
+        }
 
         final Thing42<K, D> thingObj = (Thing42<K, D>) obj;
         if (this.getLevel() != thingObj.getLevel()) {
             return false;
         }
         // null check both objects Key
-        if (this.getKey() != null && thingObj.getKey() != null) {
-            // Compare what class the Key is for both objects
-            thisKeyClass = this.getKey().getClass().toString();
-            objKeyClass = thingObj.getKey().getClass().toString();
-            equalKClasses = thisKeyClass.equals(objKeyClass);
-            if (!equalKClasses || !this.getKey().equals(thingObj.getKey())) {
-                return false;
-            }
-        } else if (this.getKey() != null || thingObj.getKey() != null) {
+        if (!compareObjects(this.getKey(), thingObj.getKey())) {
             return false;
         }
 
-        // null check both objects data
-        if (this.getData() != null && thingObj.getData() != null) {
-            // Compare what class the Data is for both objects
-            thisDataClass = this.getData().getClass().toString();
-            objDataClass = thingObj.getData().getClass().toString();
-            equalDClasses = thisDataClass.equals(objDataClass);
-            if (!equalDClasses || !this.getData().equals(thingObj.getData())) {
-                return false;
-            }
-        } else if (this.getData() != null || thingObj.getData() != null) {
+        // Compare data of both thing42 objects
+        if (!compareObjects(this.getData(), thingObj.getData())) {
             return false;
         }
 
         /* Compare peer list */
-        thisPeers
-            = (ArrayList<Thing42orNull<K, D>>) this.getPeersAsCollection();
-        objPeers
-            = (ArrayList<Thing42orNull<K, D>>) thingObj.getPeersAsCollection();
-        if (thisPeers.size() != objPeers.size()) {
+        thisPeers =
+            (ArrayList<Thing42orNull<K, D>>) this.getPeersAsCollection();
+        objPeers =
+            (ArrayList<Thing42orNull<K, D>>) thingObj.getPeersAsCollection();
+        if (!compareAListEquality(thisPeers, objPeers)) {
             return false;
         }
-        for (int i = 0; i < this.peers.size(); ++i) {
-            final int thisCount
-                = Collections.frequency(thisPeers, thisPeers.get(i));
-            final int objCount
-                = Collections.frequency(objPeers, thisPeers.get(i));
-            if (thisCount != objCount) {
-                return false;
-            }
-        }
+
         /* Compare pool list */
         thisPool = (ArrayList<Thing42orNull<K, D>>) this.getPoolAsList();
         objPool = (ArrayList<Thing42orNull<K, D>>) thingObj.getPoolAsList();
-        if (thisPool.size() != objPool.size()) {
+        if (!compareAListEquality(thisPool, objPool)) {
             return false;
         }
-        for (int i = 0; i < this.pool.size(); ++i) {
+
+        return true;
+    }
+
+    /**
+     * Compares two Objects.
+     *
+     * @param obj1 First Object
+     * @param obj2 Second Object
+     *
+     * @return true if the objects are equal
+     */
+    private boolean compareObjects(final Object obj1, final Object obj2) {
+        // Strings used for compare classes of two objects
+        final String obj1Class;
+        final String obj2Class;
+        // Booleans used for storing the boolean when comparing the classes
+        final boolean equalClasses;
+        // null check both objects data
+        if (obj1 != null && obj2 != null) {
+            // Compare what class the two objects are
+            obj1Class = obj1.getClass().toString();
+            obj2Class = obj2.getClass().toString();
+            equalClasses = obj1Class.equals(obj2Class);
+            if (!equalClasses || obj1 != obj2) {
+                return false;
+            }
+        } else if (obj2 != null || obj1 != null) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Compares two Lists.
+     *
+     * @param thisList the first list
+     * @param objList the second list
+     *
+     * @return true if lists are equal, false if they are not.
+     */
+    private boolean compareAListEquality(
+            final List<Thing42orNull<K, D>> thisList,
+            final List<Thing42orNull<K, D>> objList) {
+        if (thisList.size() != objList.size()) {
+            return false;
+        }
+        for (int i = 0; i < thisList.size(); ++i) {
             final int thisCount
-                = Collections.frequency(thisPool, thisPool.get(i));
+                    = Collections.frequency(thisList, thisList.get(i));
             final int objCount
-                = Collections.frequency(objPool, thisPool.get(i));
+                    = Collections.frequency(objList, thisList.get(i));
             if (thisCount != objCount) {
                 return false;
             }
         }
-
         return true;
     }
 
