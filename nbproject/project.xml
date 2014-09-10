@@ -87,7 +87,7 @@ auxiliary.show.customizer.message=<message>
             <compilation-unit>
                 <package-root>test</package-root>
                 <unit-tests/>
-                <classpath mode="compile">junit/hamcrest-core-1.3.jar:junit/junit-4.11.jar:build/debug/classes</classpath>
+                <classpath mode="compile">junit/hamcrest-core-1.3.jar;junit/junit-4.11.jar;src</classpath>
                 <source-level>1.5</source-level>
             </compilation-unit>
         </java-data>
