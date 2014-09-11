@@ -40,11 +40,11 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
     /** prime number for calculating hashcode. */
     private static final int PRIMENUM = 89;
     /** Holds the key value of this object.*/
-    private final K key;
+    private final K aKey;
     /** Holds the level value of this object.*/
-    private final long level;
+    private final long aLevel;
     /** Holds the data value of this object.*/
-    private D data;
+    private D theData;
     /** Holds the peers of this object.*/
     private Collection<Thing42orNull> peers;
     /** Holds the pool of this object.*/
@@ -53,14 +53,14 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
     /**
      * Constructor for objects of class Thing42.
      *
-     * @param nkey the key of this object
-     * @param nlevel the level of this object
-     * @param ndata the data of this object
+     * @param key the key of this object
+     * @param level the level of this object
+     * @param data the data of this object
      */
-    public Thing42(final K nkey, final long nlevel, final D ndata) {
-        this.key = nkey;
-        this.level = nlevel;
-        this.data = ndata;
+    public Thing42(final K key, final long level, final D data) {
+        this.aKey = key;
+        this.aLevel = level;
+        this.theData = data;
         this.peers = new ArrayList<Thing42orNull>();
         this.pool = new ArrayList<Thing42orNull>();
     }
@@ -220,7 +220,7 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      */
     @Override
     public D getData() {
-        return this.data;
+        return this.theData;
     }
 
     /**
@@ -230,7 +230,7 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      */
     @Override
     public K getKey() {
-        return this.key;
+        return this.aKey;
     }
 
     /**
@@ -240,7 +240,7 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      */
     @Override
     public long getLevel() {
-        return this.level;
+        return this.aLevel;
     }
 
     /**
@@ -382,6 +382,6 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      */
     @Override
     public void setData(final D newData) {
-        this.data = newData;
+        this.theData = newData;
     }
 }
