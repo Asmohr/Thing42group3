@@ -26,11 +26,11 @@ public class Thing42Test {
     public void setUp() {
 
         // Black is the 1st level
-        rgbBlack      = new Thing42<String, String> ("#000000", 1, "Black");
-        rgbRed        = new Thing42<String, String> ("#FF0000", 2, "Red");
-        rgbRandom     = new Thing42<String, String> ("#FF123A", 3, "Random");
-        intString1    = new Thing42<Integer, String> (1, 1, "one");
-        intString2    = new Thing42<Integer, String> (1, 2, "two");
+        this.rgbBlack      = new Thing42<String, String> ("#000000", 1, "Black");
+        this.rgbRed        = new Thing42<String, String> ("#FF0000", 2, "Red");
+        this.rgbRandom     = new Thing42<String, String> ("#FF123A", 3, "Random");
+        this.intString1    = new Thing42<Integer, String> (1, 1, "one");
+        this.intString2    = new Thing42<Integer, String> (1, 2, "two");
     }
 
     /**
@@ -38,12 +38,12 @@ public class Thing42Test {
      */
     @Test
     public void testAddPeer() {
-        assertEquals(0, rgbBlack.getPeersAsCollection().size());
-        rgbBlack.addPeer(rgbRed);
-        assertEquals(1, rgbBlack.getPeersAsCollection().size());
-        rgbBlack.addPeer(rgbRandom);
-        assertEquals(2, rgbBlack.getPeersAsCollection().size());
-        assertEquals(true, rgbBlack.getPeersAsCollection().contains(rgbRed));
+        assertEquals(0, this.rgbBlack.getPeersAsCollection().size());
+        this.rgbBlack.addPeer(this.rgbRed);
+        assertEquals(1, this.rgbBlack.getPeersAsCollection().size());
+        this.rgbBlack.addPeer(this.rgbRandom);
+        assertEquals(2, this.rgbBlack.getPeersAsCollection().size());
+        assertEquals(true, this.rgbBlack.getPeersAsCollection().contains(this.rgbRed));
     }
 
     /**
@@ -52,7 +52,7 @@ public class Thing42Test {
      */
     @Test(expected = NullPointerException.class)
     public void testAddPeerNPExc() {
-        rgbBlack.addPeer(null);
+        this.rgbBlack.addPeer(null);
     }
 
     /**
@@ -60,18 +60,18 @@ public class Thing42Test {
      */
     @Test
     public void testAppendToPool() {
-        assertEquals(0, rgbBlack.getPoolAsList().size());
-        rgbBlack.appendToPool(rgbRed);
-        rgbBlack.appendToPool(rgbRandom);
-        assertEquals(2, rgbBlack.getPoolAsList().size());
+        assertEquals(0, this.rgbBlack.getPoolAsList().size());
+        this.rgbBlack.appendToPool(this.rgbRed);
+        this.rgbBlack.appendToPool(this.rgbRandom);
+        assertEquals(2, this.rgbBlack.getPoolAsList().size());
 
         Thing42orNull<String, String> thing1 =
-                (Thing42orNull) rgbBlack.getPoolAsList().get(0);
+                (Thing42orNull) this.rgbBlack.getPoolAsList().get(0);
 
         assertEquals("Red", thing1.getData());
 
         Thing42orNull<String, String> thing2 =
-                (Thing42orNull) rgbBlack.getPoolAsList().get(1);
+                (Thing42orNull) this.rgbBlack.getPoolAsList().get(1);
 
         assertEquals("Random", thing2.getData());
     }
@@ -82,7 +82,7 @@ public class Thing42Test {
      */
     @Test(expected = NullPointerException.class)
     public void testAppendToPoolNPExc() {
-        rgbBlack.appendToPool(null);
+        this.rgbBlack.appendToPool(null);
     }
 
     /**
@@ -90,10 +90,10 @@ public class Thing42Test {
      */
     @Test
     public void testGetData() {
-        assertEquals("Black", rgbBlack.getData());
-        assertEquals("one", intString1.getData());
-        rgbBlack.setData(null);
-        assertNull( rgbBlack.getData());
+        assertEquals("Black", this.rgbBlack.getData());
+        assertEquals("one", this.intString1.getData());
+        this.rgbBlack.setData(null);
+        assertNull( this.rgbBlack.getData());
     }
     
     /**
@@ -102,12 +102,12 @@ public class Thing42Test {
     @Test
     public void duplicateTest(){
        Thing42<String, String> rgbBlack2 = new Thing42<String, String> ("#000000", 1, "Black");
-       rgbRed.addPeer(rgbBlack);
-       rgbRed.addPeer(rgbBlack2);
-       assertTrue(rgbRed.getPeersAsCollection().size() == 2);
-       rgbRed.appendToPool(rgbBlack);
-       rgbRed.appendToPool(rgbBlack);
-       assertTrue(rgbRed.getPoolAsList().size() == 2);
+       this.rgbRed.addPeer(this.rgbBlack);
+       this.rgbRed.addPeer(rgbBlack2);
+       assertTrue(this.rgbRed.getPeersAsCollection().size() == 2);
+       this.rgbRed.appendToPool(this.rgbBlack);
+       this.rgbRed.appendToPool(this.rgbBlack);
+       assertTrue(this.rgbRed.getPoolAsList().size() == 2);
     }
 
     /**
@@ -115,8 +115,8 @@ public class Thing42Test {
      */
     @Test
     public void testGetKey() {
-        assertEquals("#000000", rgbBlack.getKey());
-        assertEquals(1, (long) intString1.getKey());
+        assertEquals("#000000", this.rgbBlack.getKey());
+        assertEquals(1, (long) this.intString1.getKey());
     }
 
     /**
@@ -124,9 +124,9 @@ public class Thing42Test {
      */
     @Test
     public void testGetLevel() {
-        assertEquals(1, rgbBlack.getLevel());
-        assertEquals(2, rgbRed.getLevel());
-        assertEquals(2, intString2.getLevel());
+        assertEquals(1, this.rgbBlack.getLevel());
+        assertEquals(2, this.rgbRed.getLevel());
+        assertEquals(2, this.intString2.getLevel());
     }
 
     /**
@@ -134,12 +134,12 @@ public class Thing42Test {
      */
     @Test
     public void testGetOnePeer() {
-        assertEquals(0, rgbBlack.getPeersAsCollection().size());
-        rgbBlack.addPeer(rgbRed);
-        assertEquals(1, rgbBlack.getPeersAsCollection().size());
+        assertEquals(0, this.rgbBlack.getPeersAsCollection().size());
+        this.rgbBlack.addPeer(this.rgbRed);
+        assertEquals(1, this.rgbBlack.getPeersAsCollection().size());
 
         Thing42orNull<String, String> onePeer =
-                rgbBlack.getOnePeer("#FF0000");
+                this.rgbBlack.getOnePeer("#FF0000");
 
         assertEquals("Red", onePeer.getData());
     }
@@ -150,12 +150,12 @@ public class Thing42Test {
      */
     @Test(expected = NullPointerException.class)
     public void testGetOnePeerNPExc() {
-        assertEquals(0, rgbBlack.getPeersAsCollection().size());
-        rgbBlack.addPeer(rgbRed);
-        assertEquals(1, rgbBlack.getPeersAsCollection().size());
+        assertEquals(0, this.rgbBlack.getPeersAsCollection().size());
+        this.rgbBlack.addPeer(this.rgbRed);
+        assertEquals(1, this.rgbBlack.getPeersAsCollection().size());
 
         Thing42orNull<String, String> anotherPeer =
-                rgbBlack.getOnePeer("#FF000");
+                this.rgbBlack.getOnePeer("#FF000");
 
         assertEquals(null, anotherPeer.getData());
     }
@@ -165,11 +165,11 @@ public class Thing42Test {
      */
     @Test
     public void testGetPeersAsCollection_0args() {
-        rgbBlack = new Thing42<String, String>("#000000", 1, "Black");
-        rgbRed   = new Thing42<String, String>("#FF0000", 2, "Red");
-        assertEquals(0, rgbBlack.getPeersAsCollection().size());
-        rgbBlack.addPeer(rgbRed);
-        assertEquals(1, rgbBlack.getPeersAsCollection().size());
+        this.rgbBlack = new Thing42<String, String>("#000000", 1, "Black");
+        this.rgbRed   = new Thing42<String, String>("#FF0000", 2, "Red");
+        assertEquals(0, this.rgbBlack.getPeersAsCollection().size());
+        this.rgbBlack.addPeer(this.rgbRed);
+        assertEquals(1, this.rgbBlack.getPeersAsCollection().size());
     }
 
     /**
@@ -177,12 +177,12 @@ public class Thing42Test {
      */
     @Test
     public void testGetPeersAsCollection_GenericType() {
-        assertEquals(0, rgbBlack.getPeersAsCollection("#FF0000").size());
-        rgbBlack.addPeer(rgbRed);
-        assertEquals(1, rgbBlack.getPeersAsCollection("#FF0000").size());
+        assertEquals(0, this.rgbBlack.getPeersAsCollection("#FF0000").size());
+        this.rgbBlack.addPeer(this.rgbRed);
+        assertEquals(1, this.rgbBlack.getPeersAsCollection("#FF0000").size());
 
         for (Thing42orNull peer :
-                rgbBlack.getPeersAsCollection("#FF0000")) {
+                this.rgbBlack.getPeersAsCollection("#FF0000")) {
             assertTrue(peer.getData().equals("Red"));
         }
     }
@@ -193,17 +193,17 @@ public class Thing42Test {
     @Test
     public void testGetPoolAsList() {
 
-        assertEquals(0, rgbBlack.getPoolAsList().size());
-        rgbBlack.appendToPool(rgbRed);
-        assertEquals(1, rgbBlack.getPoolAsList().size());
+        assertEquals(0, this.rgbBlack.getPoolAsList().size());
+        this.rgbBlack.appendToPool(this.rgbRed);
+        assertEquals(1, this.rgbBlack.getPoolAsList().size());
 
         // add a Thing42 with a different key and data data types
-        rgbBlack.appendToPool(rgbRandom);
-        assertEquals(2, rgbBlack.getPoolAsList().size());
-        rgbBlack.removeFromPool(rgbRed);
-        assertEquals(1, rgbBlack.getPoolAsList().size());
-        assertFalse(rgbBlack.getPoolAsList().contains(rgbRed));
-        assertEquals(true, rgbBlack.getPoolAsList().contains(rgbRandom));
+        this.rgbBlack.appendToPool(this.rgbRandom);
+        assertEquals(2, this.rgbBlack.getPoolAsList().size());
+        this.rgbBlack.removeFromPool(this.rgbRed);
+        assertEquals(1, this.rgbBlack.getPoolAsList().size());
+        assertFalse(this.rgbBlack.getPoolAsList().contains(this.rgbRed));
+        assertEquals(true, this.rgbBlack.getPoolAsList().contains(this.rgbRandom));
     }
 
     /**
@@ -211,26 +211,26 @@ public class Thing42Test {
      */
     @Test
     public void testRemoveFromPool() {
-        assertEquals(0, rgbBlack.getPoolAsList().size());
-        rgbBlack.appendToPool(rgbRed);
-        rgbBlack.appendToPool(rgbRandom);
-        assertEquals(2, rgbBlack.getPoolAsList().size());
+        assertEquals(0, this.rgbBlack.getPoolAsList().size());
+        this.rgbBlack.appendToPool(this.rgbRed);
+        this.rgbBlack.appendToPool(this.rgbRandom);
+        assertEquals(2, this.rgbBlack.getPoolAsList().size());
 
-        Thing42orNull<String, String> thing1 = //rgbRed
-                (Thing42orNull) rgbBlack.getPoolAsList().get(0);
+        Thing42orNull<String, String> thing1 = //this.rgbRed
+                (Thing42orNull) this.rgbBlack.getPoolAsList().get(0);
 
         assertEquals("Red", thing1.getData());
 
-        Thing42orNull<String, String> thing2 = //rgbRandom
-                (Thing42orNull) rgbBlack.getPoolAsList().get(1);
+        Thing42orNull<String, String> thing2 = //this.rgbRandom
+                (Thing42orNull) this.rgbBlack.getPoolAsList().get(1);
 
         assertEquals("Random", thing2.getData());
-        assertEquals(true, rgbBlack.removeFromPool(rgbRed));
-        assertEquals(false, rgbBlack.removeFromPool(rgbRed));
-        assertEquals(1, rgbBlack.getPoolAsList().size());
+        assertEquals(true, this.rgbBlack.removeFromPool(this.rgbRed));
+        assertEquals(false, this.rgbBlack.removeFromPool(this.rgbRed));
+        assertEquals(1, this.rgbBlack.getPoolAsList().size());
 
         Thing42orNull<String, String> thing3 =
-                (Thing42orNull) rgbBlack.getPoolAsList().get(0);
+                (Thing42orNull) this.rgbBlack.getPoolAsList().get(0);
 
         assertEquals("Random", thing3.getData());
     }
@@ -241,11 +241,11 @@ public class Thing42Test {
      */
     @Test(expected = NullPointerException.class)
     public void testRemoveFromPoolNPExc() {
-        assertEquals(0, rgbBlack.getPoolAsList().size());
-        rgbBlack.appendToPool(rgbRed);
-        rgbBlack.appendToPool(rgbRandom);
-        assertEquals(true, rgbBlack.removeFromPool(rgbRed));
-        rgbBlack.removeFromPool(null);
+        assertEquals(0, this.rgbBlack.getPoolAsList().size());
+        this.rgbBlack.appendToPool(this.rgbRed);
+        this.rgbBlack.appendToPool(this.rgbRandom);
+        assertEquals(true, this.rgbBlack.removeFromPool(this.rgbRed));
+        this.rgbBlack.removeFromPool(null);
     }
 
     /**
@@ -253,20 +253,20 @@ public class Thing42Test {
      */
     @Test
     public void testRemovePeer() {
-        assertEquals(0, rgbBlack.getPeersAsCollection().size());
-        rgbBlack.addPeer(rgbRed);
-        assertEquals(1, rgbBlack.getPeersAsCollection().size());
+        assertEquals(0, this.rgbBlack.getPeersAsCollection().size());
+        this.rgbBlack.addPeer(this.rgbRed);
+        assertEquals(1, this.rgbBlack.getPeersAsCollection().size());
 
         // Should we be able to do this?
-        rgbBlack.addPeer(rgbRandom);
-        assertEquals(2, rgbBlack.getPeersAsCollection().size());
-        assertEquals(true, rgbBlack.getPeersAsCollection().contains(rgbRed));
-        assertEquals(false, rgbBlack.getPeersAsCollection()
-                .contains(intString1));
-        assertEquals(true, rgbBlack.removePeer(rgbRed));
-        assertEquals(false, rgbBlack.removePeer(rgbRed));
-        assertEquals(false, rgbBlack.getPeersAsCollection().contains(rgbRed));
-        assertEquals(1, rgbBlack.getPeersAsCollection().size());
+        this.rgbBlack.addPeer(this.rgbRandom);
+        assertEquals(2, this.rgbBlack.getPeersAsCollection().size());
+        assertEquals(true, this.rgbBlack.getPeersAsCollection().contains(this.rgbRed));
+        assertEquals(false, this.rgbBlack.getPeersAsCollection()
+                .contains(this.intString1));
+        assertEquals(true, this.rgbBlack.removePeer(this.rgbRed));
+        assertEquals(false, this.rgbBlack.removePeer(this.rgbRed));
+        assertEquals(false, this.rgbBlack.getPeersAsCollection().contains(this.rgbRed));
+        assertEquals(1, this.rgbBlack.getPeersAsCollection().size());
     }
 
     /**
@@ -275,15 +275,15 @@ public class Thing42Test {
      */
     @Test(expected = NullPointerException.class)
     public void testRemovePeerNPExc() {
-        assertEquals(0, rgbBlack.getPeersAsCollection().size());
-        rgbBlack.addPeer(rgbRed);
-        assertEquals(1, rgbBlack.getPeersAsCollection().size());
+        assertEquals(0, this.rgbBlack.getPeersAsCollection().size());
+        this.rgbBlack.addPeer(this.rgbRed);
+        assertEquals(1, this.rgbBlack.getPeersAsCollection().size());
 
         // Should we be able to do this?
-        rgbBlack.addPeer(rgbRandom);
-        assertEquals(2, rgbBlack.getPeersAsCollection().size());
-        assertEquals(true, rgbBlack.removePeer(rgbRed));
-        assertEquals(false, rgbBlack.removePeer(null));
+        this.rgbBlack.addPeer(this.rgbRandom);
+        assertEquals(2, this.rgbBlack.getPeersAsCollection().size());
+        assertEquals(true, this.rgbBlack.removePeer(this.rgbRed));
+        assertEquals(false, this.rgbBlack.removePeer(null));
     }
 
     /**
@@ -291,12 +291,12 @@ public class Thing42Test {
      */
     @Test
     public void testSetData() {
-        assertEquals("Black", rgbBlack.getData());
-        rgbBlack.setData("Purple");
-        assertEquals("Purple", rgbBlack.getData());
-        assertEquals("one", intString1.getData());
-        intString1.setData("three");
-        assertEquals("three", intString1.getData());
+        assertEquals("Black", this.rgbBlack.getData());
+        this.rgbBlack.setData("Purple");
+        assertEquals("Purple", this.rgbBlack.getData());
+        assertEquals("one", this.intString1.getData());
+        this.intString1.setData("three");
+        assertEquals("three", this.intString1.getData());
         //assertNull(nullIntString.getData());
     
     }
@@ -307,11 +307,11 @@ public class Thing42Test {
     @Test
     public void equalsTest(){
         Thing42<String, String> rgbBlack2 = new Thing42<String, String> ("#000000", 1, "Black");
-        assertTrue(rgbBlack.equals(rgbBlack2));
+        assertTrue(this.rgbBlack.equals(rgbBlack2));
         Thing42<String, String> rgbGreen = new Thing42<String, String> ("#00FF00", 1, "Green");
         rgbBlack2.addPeer(rgbGreen);
-        rgbBlack.addPeer(rgbGreen);
-        assertTrue(rgbBlack.equals(rgbBlack2));
+        this.rgbBlack.addPeer(rgbGreen);
+        assertTrue(this.rgbBlack.equals(rgbBlack2));
     }
     
     /**
@@ -319,7 +319,7 @@ public class Thing42Test {
      */
     @Test
     public void equalsTestNull(){
-        assertFalse(rgbBlack.equals(null));
+        assertFalse(this.rgbBlack.equals(null));
     }
     /**
      * Test to ensure Thing42 of different Data Types don't equal.
@@ -345,7 +345,7 @@ public class Thing42Test {
      */
     @Test
     public void hashTestNullCheck(){    
-        Integer hash = rgbBlack.hashCode();
+        Integer hash = this.rgbBlack.hashCode();
         assertFalse(hash.equals(null));
     }
     
@@ -357,11 +357,11 @@ public class Thing42Test {
     @Test
     public void hashTestEqualThings(){
         Thing42<String, String> rgbBlack2 = new Thing42<String, String>("#000000", 1, "Black");
-        assertTrue(rgbBlack.equals(rgbBlack2));
-        System.out.println(rgbBlack.hashCode() + " " + rgbRandom.hashCode() + " " + rgbRed.hashCode());
-        assertTrue(rgbBlack.hashCode() == rgbBlack2.hashCode());
-        assertTrue(rgbBlack.hashCode() != rgbRandom.hashCode());
-        assertTrue(rgbBlack.hashCode() != rgbRed.hashCode());
+        assertTrue(this.rgbBlack.equals(rgbBlack2));
+        System.out.println(this.rgbBlack.hashCode() + " " + this.rgbRandom.hashCode() + " " + this.rgbRed.hashCode());
+        assertTrue(this.rgbBlack.hashCode() == rgbBlack2.hashCode());
+        assertTrue(this.rgbBlack.hashCode() != this.rgbRandom.hashCode());
+        assertTrue(this.rgbBlack.hashCode() != this.rgbRed.hashCode());
     }
     
     /**
