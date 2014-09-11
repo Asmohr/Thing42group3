@@ -394,8 +394,8 @@ public class Thing42Test {
     }
 
     /**
-     * Tests that equals() does not through an error for a graph of three objects
-     *  which are each peers of each other.
+     * Tests that equals() does not through an error for a 
+     * graph of three objects which are each peers of each other.
      *
      * WARNING: This is known to cause a stack over flow.
      */
