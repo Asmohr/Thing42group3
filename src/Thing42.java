@@ -2,8 +2,9 @@
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
+
 
 /**
  * An object of type Thing42 has five attributes. 
