@@ -275,8 +275,6 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
             returnThings.add(thing);
         }
         return returnThings;
-        //for a shallow copy use:
-        //return peers;
     }
 
     /**
@@ -313,8 +311,6 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
             poolList.add(thing);
         }
         return poolList;
-        //for a shallow copy use:
-        //return (List<Thing42orNull>) pool;
     }
 
     /**
