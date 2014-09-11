@@ -95,6 +95,20 @@ public class Thing42Test {
         rgbBlack.setData(null);
         assertNull( rgbBlack.getData());
     }
+    
+    /**
+    * Test to ensure duplicates can be added to peers and the pool.
+    */
+    @Test
+    public void duplicateTest(){
+       Thing42<String, String> rgbBlack2 = new Thing42<String, String> ("#000000", 1, "Black");
+       rgbRed.addPeer(rgbBlack);
+       rgbRed.addPeer(rgbBlack2);
+       assertTrue(rgbRed.getPeersAsCollection().size() == 2);
+       rgbRed.appendToPool(rgbBlack);
+       rgbRed.appendToPool(rgbBlack);
+       assertTrue(rgbRed.getPoolAsList().size() == 2);
+    }
 
     /**
      * Test of getKey method, of class Thing42.
