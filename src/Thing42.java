@@ -55,14 +55,14 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
     /**
      * Constructor for objects of class Thing42.
      *
-     * @param key the key of this object
-     * @param level the level of this object
-     * @param data the data of this object
+     * @param nkey the key of this object
+     * @param nlevel the level of this object
+     * @param ndata the data of this object
      */
-    public Thing42(final K key, final long level, final D data) {
-        this.key = key;
-        this.level = level;
-        this.data = data;
+    public Thing42(final K nkey, final long nlevel, final D ndata) {
+        this.key = nkey;
+        this.level = nlevel;
+        this.data = ndata;
         this.peers = new ArrayList<Thing42orNull>();
         this.pool = new ArrayList<Thing42orNull>();
     }
@@ -132,28 +132,28 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
             return false;
         }
         // null check both objects Key
-        if (!compareObjects(this.getKey(), thingObj.getKey())) {
+        if (!this.compareObjects(this.getKey(), thingObj.getKey())) {
             return false;
         }
 
         // Compare data of both thing42 objects
-        if (!compareObjects(this.getData(), thingObj.getData())) {
+        if (!this.compareObjects(this.getData(), thingObj.getData())) {
             return false;
         }
 
         /* Compare peer list */
-        thisPeers =
-            (ArrayList<Thing42orNull<K, D>>) this.getPeersAsCollection();
-        objPeers =
-            (ArrayList<Thing42orNull<K, D>>) thingObj.getPeersAsCollection();
-        if (!compareAListEquality(thisPeers, objPeers)) {
+        thisPeers
+            = (ArrayList<Thing42orNull<K, D>>) this.getPeersAsCollection();
+        objPeers
+            = (ArrayList<Thing42orNull<K, D>>) thingObj.getPeersAsCollection();
+        if (!this.compareAListEquality(thisPeers, objPeers)) {
             return false;
         }
 
         /* Compare pool list */
         thisPool = (ArrayList<Thing42orNull<K, D>>) this.getPoolAsList();
         objPool = (ArrayList<Thing42orNull<K, D>>) thingObj.getPoolAsList();
-        if (!compareAListEquality(thisPool, objPool)) {
+        if (!this.compareAListEquality(thisPool, objPool)) {
             return false;
         }
 
@@ -205,9 +205,9 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
         }
         for (int i = 0; i < thisList.size(); ++i) {
             final int thisCount
-                    = Collections.frequency(thisList, thisList.get(i));
+                = Collections.frequency(thisList, thisList.get(i));
             final int objCount
-                    = Collections.frequency(objList, thisList.get(i));
+                = Collections.frequency(objList, thisList.get(i));
             if (thisCount != objCount) {
                 return false;
             }
@@ -336,7 +336,7 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
             partialHashCode = this.getKey().hashCode();
         } else {
             partialHashCode = 0;
-    }
+        }
         hash = PRIMENUM * hash + partialHashCode;
 
         if (this.getData() != null) {

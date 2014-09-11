@@ -9,7 +9,8 @@ import java.util.List;
  *
  * An object of type Thing42 has five attributes. 
  * There are two immutable attributes: a generic attribute known 
- * as its {@code key} and an integer-valued attribute known as its {@code level}. 
+ * as its {@code key} and an integer-valued attribute known as its
+ * {@code level}. 
  * There is also a generic mutable attribute known as its {@code data}. 
  * Values of key, level, and data are assigned at object creation. 
  * In addition, each Thing42 object has an unordered collection of Thing42 
