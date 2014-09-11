@@ -390,7 +390,10 @@ public class Thing42Test {
     }
 
     /**
-     * Tests adding one peer.
+     * Tests that equals() does not through an error for a graph of three objects
+     *  which are each peers of each other.
+     *
+     * WARNING: This is known to cause a stack over flow.
      */
     @Test
     public void testCircularDependency() {
@@ -407,7 +410,10 @@ public class Thing42Test {
     }
 
     /**
-     * Tests adding one peer.
+     * Tests that equals() does not through an error for a graph of two objects
+     *  which are each peers of each other.
+     *
+     * WARNING: This is known to cause a stack over flow.
      */
     @Test
     public void testCircularDependency2() {
