@@ -3,8 +3,6 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-//~--- JDK imports ------------------------------------------------------------
-import java.util.HashSet;
 
 /**
  * Preliminary Programming Project
@@ -24,13 +22,18 @@ public class Thing42Test {
     private Thing42<Integer, String> intString1;
     /** Thing 42 test variable. */
     private Thing42<Integer, String> intString2;
+    /** Thing 42 test variable. */
+    private final int testInt = 3;
 
+    /**
+     * Setup test objects
+     */
     @Before
     public void setUp() {
         this.rgbBlack      = new Thing42<String, String>("#000000", 1, "Black");
         this.rgbRed        = new Thing42<String, String>("#FF0000", 2, "Red");
         this.rgbRandom     
-                = new Thing42<String, String>("#FF123A", 3, "Random");
+                = new Thing42<String, String>("#FF123A", testInt, "Random");
         this.intString1    = new Thing42<Integer, String>(1, 1, "one");
         this.intString2    = new Thing42<Integer, String>(1, 2, "two");
     }
@@ -120,7 +123,7 @@ public class Thing42Test {
     @Test
     public void testGetKey() {
         assertEquals("#000000", this.rgbBlack.getKey());
-        assertEquals(1,(long) this.intString1.getKey());
+        assertEquals(1, (long) this.intString1.getKey());
     }
 
     /**
