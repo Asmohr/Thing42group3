@@ -7,8 +7,8 @@ import static org.junit.Assert.*;
 /**
  * Preliminary Programming Project Test Class for Thing42 class.
  *
- * @author Alex Miscall - From Jody Paul's API
- * @version CS4250 Fall 2014(10 September 2014)
+ * @author Group 3 - MW - From Jody Paul's API
+ * @version CS4250 Fall 2014 - API - (11 September 2014)
  */
 public class Thing42Test {
 
