@@ -14,18 +14,19 @@ import java.util.HashSet;
  * @version CS4250 Fall 2014 (10 September 2014)
  */
 public class Thing42Test {
-
-    // private Thing42<null,null> empty;
+    /** Thing 42 test variable. */
     private Thing42<String, String>  rgbBlack;
+    /** Thing 42 test variable. */
     private Thing42<String, String>  rgbRed;
+    /** Thing 42 test variable. */
     private Thing42<String, String>  rgbRandom;
+    /** Thing 42 test variable. */
     private Thing42<Integer, String> intString1;
+    /** Thing 42 test variable. */
     private Thing42<Integer, String> intString2;
 
     @Before
     public void setUp() {
-
-        // Black is the 1st level
         this.rgbBlack      = new Thing42<String, String> ("#000000", 1, "Black");
         this.rgbRed        = new Thing42<String, String> ("#FF0000", 2, "Red");
         this.rgbRandom     = new Thing42<String, String> ("#FF123A", 3, "Random");
