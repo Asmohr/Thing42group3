@@ -9,32 +9,28 @@ import java.util.List;
  *
  * An object of type Thing42 has five attributes. 
  * There are two immutable attributes: a generic attribute known 
- * as its {@code key} and an integer-valued attribute known as its
- * {@code level}. 
- * There is also a generic mutable attribute known as its {@code data}. 
+ * as its <i>key</i> and an integer-valued attribute known as its <i>level</i>. 
+ * There is also a generic mutable attribute known as its <i>data</i>. 
  * Values of key, level, and data are assigned at object creation. 
  * In addition, each Thing42 object has an unordered collection of Thing42 
- * objects known as its {@code peers} as well as an ordered collection 
- * of Thing42 objects known as its {@code pool}.<br><br>
+ * objects known as its <i>peers</i> as well as an ordered collection 
+ * of Thing42 objects known as its <i>pool</i>.<br><br>
  * 
- * +-----------+<br>
- * |  Thing42  |<br>
- * +-----------+ 
- * <table frame="vsides" style="width:40px" >
- * <tr>
- * <td>Key <br>
- *     Level <br>
- *     Data <br>
- *     Peers... <br>
- *     Pool... <br>
- * </td>
- * </tr>
- * </table>
- * +-----------+<br><br>
+ *<pre> 
+ *+-----------+
+ *|  Thing42  |
+ *+-----------+
+ *| Key       |
+ *| Level     |
+ *| Data      |
+ *| Peers...  |
+ *| Pool...   |
+ *+-----------+
+ *</pre>
  * 
  * Objects of type Thing42 are created using a constructor with the 
  * following signature:<br>
- * &nbsp;&nbsp;&nbsp; public Thing42(K key, long level, D data) 
+ * public Thing42(K key, long level, D data) 
  * 
  * @author Group 3 - MW - From Jody Paul's API
  * @version CS4250 Fall 2014 - API - (11 September 2014)
