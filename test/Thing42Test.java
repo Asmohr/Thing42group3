@@ -11,7 +11,7 @@ import java.util.HashSet;
  * Test Class for Thing42 class
  *
  * @author Alex Miscall - From Jody Paul's API
- * @version CS4250 Fall 2014 (22 August 2014)
+ * @version CS4250 Fall 2014 (10 September 2014)
  */
 public class Thing42Test {
 
@@ -21,7 +21,6 @@ public class Thing42Test {
     private Thing42<String, String>  rgbRandom;
     private Thing42<Integer, String> intString1;
     private Thing42<Integer, String> intString2;
-    private Thing42<Integer, String> nullIntString;
 
     @Before
     public void setUp() {
@@ -42,12 +41,9 @@ public class Thing42Test {
         assertEquals(0, rgbBlack.getPeersAsCollection().size());
         rgbBlack.addPeer(rgbRed);
         assertEquals(1, rgbBlack.getPeersAsCollection().size());
-        // Should we be able to do this?
         rgbBlack.addPeer(rgbRandom);
         assertEquals(2, rgbBlack.getPeersAsCollection().size());
         assertEquals(true, rgbBlack.getPeersAsCollection().contains(rgbRed));
-        assertEquals(false, rgbBlack.getPeersAsCollection()
-                .contains(intString1));
     }
 
     /**
@@ -96,7 +92,8 @@ public class Thing42Test {
     public void testGetData() {
         assertEquals("Black", rgbBlack.getData());
         assertEquals("one", intString1.getData());
-        //assertEquals(null, nullIntString.getData());
+        rgbBlack.setData(null);
+        assertNull( rgbBlack.getData());
     }
 
     /**
@@ -106,7 +103,6 @@ public class Thing42Test {
     public void testGetKey() {
         assertEquals("#000000", rgbBlack.getKey());
         assertEquals(1, (long) intString1.getKey());
-        //assertEquals(null, nullIntString.getKey());
     }
 
     /**
@@ -183,7 +179,6 @@ public class Thing42Test {
     @Test
     public void testGetPoolAsList() {
 
-        // List<Thing42orNull> poolList = rgbBlack.getPoolAsList();
         assertEquals(0, rgbBlack.getPoolAsList().size());
         rgbBlack.appendToPool(rgbRed);
         assertEquals(1, rgbBlack.getPoolAsList().size());
